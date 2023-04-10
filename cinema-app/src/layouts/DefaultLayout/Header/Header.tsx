@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import styles from './Header.module.scss';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
   const [searchValue, setSearchValue] = useState('');
+  const router = useRouter()
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -19,27 +22,16 @@ const Header: React.FC<HeaderProps> = () => {
     throw new Error('Function not implemented.');
   }
 
-  function onAfishaClick(): void {
-    throw new Error('Function not implemented.');
-  }
-
-  function onInfoClick(): void {
-    throw new Error('Function not implemented.');
-  }
-
-  function onProfileClick(): void {
-    throw new Error('Function not implemented.');
-  }
 
   return (
     <header className={styles.header}>
-      <button className={styles.header__button} onClick={onAfishaClick}>
+      <button className={styles.header__button} onClick={() => {router.push('/afisha')}}>
         Афиша
       </button>
-      <button className={styles.header__button} onClick={onInfoClick}>
+      <button className={styles.header__button} onClick={() => {router.push('/info')}}>
         Инфо
       </button>
-      <button className={styles.header__button} onClick={onProfileClick}>
+      <button className={styles.header__button} onClick={() => {router.push('/profile')}}>
         Профиль
       </button>
       <form className={styles.header__searchForm} onSubmit={handleSearchSubmit}>

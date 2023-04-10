@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import styles from './MainSlider.module.scss';
 
 SwiperCore.use([Navigation, Pagination]);
@@ -15,7 +15,6 @@ interface MainSliderProps {
 const MainSlider: React.FC<MainSliderProps> = ({ slides }) => {
   const [swiper, setSwiper] = useState<SwiperCore | null>(null);
 
-
   return (
     <div className={styles.mainSlider}>
       <Swiper
@@ -23,6 +22,8 @@ const MainSlider: React.FC<MainSliderProps> = ({ slides }) => {
         navigation
         pagination={{ clickable: true }}
         className={styles.mainSlider__swiper}
+        centeredSlides
+        centeredSlidesBounds
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>

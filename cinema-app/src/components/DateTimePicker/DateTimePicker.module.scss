@@ -1,0 +1,19 @@
+.date_time_picker {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100px;
+  
+    &__date {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  
+    &__input {
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      margin-left: 1.5rem;
+    }
+  }

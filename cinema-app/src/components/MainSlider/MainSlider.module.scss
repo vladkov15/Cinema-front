@@ -1,29 +1,12 @@
 .mainSlider {
-    width: 100vw;
-  
-    &__swiper {
-      width: 100%;
-      height: 400px;
-    }
-  
-    &__prev,
-    &__next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 10;
-      background-color: transparent;
-      border: none;
-      color: white;
-      font-size: 2rem;
-      cursor: pointer;
-    }
-  
-    &__prev {
-      left: 20px;
-    }
-  
-    &__next {
-      right: 20px;
-    }
+  width: 100vw;
+  height: 400px;
+
+  &__swiper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+}
