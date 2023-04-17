@@ -1,11 +1,7 @@
-import Session from "@/components/Session/Session"
+import Session from '@/components/Session/Session';
 
+const FilmId = () => {
+  return <Session numRows={7} seatsPerRow={10} />;
+};
 
-
-const FilmId = () =>{
-    return(
-        <Session rows={10} seatsPerRow={5} />
-    )
-}
-
-export default FilmId
+export default FilmId;

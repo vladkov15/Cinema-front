@@ -1,99 +1,93 @@
 import React, { useState } from 'react';
 import styles from './Session.module.scss';
+import { Seat } from '@/types/type';
+import ListOfSeats from './ListOfSeats/ListOfSeats';
 
-type Seat = {
-  id: string;
-  row: number;
-  seat: number;
-  selected: boolean;
-};
 
-type Props = {
-  rows: number;
+interface Props {
+  numRows: number;
   seatsPerRow: number;
-};
-
-function generateSeats(rows: number, seatsPerRow: number) {
-  const seats = [];
-
-  for (let i = 0; i < rows; i++) {
-    const rowIndex = i + 1;
-    const seatsForRow = seatsPerRow + 2 * i;
-
-    for (let j = 0; j < seatsForRow; j++) {
-      const seatIndex = j + 1;
-      seats.push({
-        id: `${rowIndex}-${seatIndex}`,
-        row: rowIndex,
-        seat: seatIndex,
-        selected: false,
-      });
-    }
-  }
-
-  return seats;
 }
 
-function Session({ rows, seatsPerRow }: Props) {
-  const [seats, setSeats] = useState<Seat[]>(generateSeats(rows, seatsPerRow));
+const Session = ({ numRows, seatsPerRow }: Props) => {
+  const [seats, setSeats] = useState<Seat[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
 
-  function handleSeatClick(seat: Seat) {
-    const updatedSeats = seats.map((s) => {
-      if (s.id === seat.id) {
-        return { ...s, selected: !s.selected };
-      } else {
-        return s;
+  const initSeats = () => {
+    const newSeats: Seat[] = [];
+    for (let i = 1; i <= numRows; i++) {
+      for (let j = 1; j <= seatsPerRow; j++) {
+        newSeats.push({
+          row: i,
+          seatNumber: j,
+          selected: false,
+        });
       }
-    });
-
-    setSeats(updatedSeats);
-
-    if (seat.selected) {
-      setSelectedSeats(selectedSeats.filter((s) => s.id !== seat.id));
-    } else {
-      setSelectedSeats([...selectedSeats, seat]);
     }
-  }
+    setSeats(newSeats);
+    setSelectedSeats([])
+  };
+
   
+  const toggleSeat = (row: number, seatNumber: number) => {
+    let mass:Seat[] = []
+    mass = seats.map((seat) =>
+    seat.row === row && seat.seatNumber === seatNumber
+      ? { ...seat, selected: !seat.selected }
+      : seat
+  )
+    setSelectedSeats(mass.filter( seat => seat.selected === true))
+    setSeats(mass)
+  };
+
+  const getSeat = (row: number, seatNumber: number) =>
+    seats.find((seat) => seat.row === row && seat.seatNumber === seatNumber);
+
+  const renderSeats = () => {
+    const rows = [];
+    for (let i = 0; i < numRows; i++) {
+      const numSeats = seatsPerRow + i;
+      const rowSeats = [];
+      for (let j = 1; j <= numSeats; j++) {
+        const seat = getSeat(i + 1 , j);
+        rowSeats.push(
+          <div
+            key={`${i + 1}-${j}`}
+            className={`${styles.seat} ${seat?.selected ? styles.selected : ''}`}
+            onClick={() => toggleSeat(i + 1 , j )}
+            
+          >
+            {j}
+          </div>
+        );
+      }
+      rows.push(
+        <div key={i} className={styles.row}>
+          {rowSeats}
+        </div>
+      );
+    }
+    return rows;
+  };
+  
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const selectedSeats = seats.filter((seat) => seat.selected);
+    setSelectedSeats(selectedSeats);
+  };
 
   return (
     <div className={styles.session}>
-      <div className={styles.session__screen}></div>
-      <div className={styles.session__seats}>
-        {seats.map((seat) => (
-          <div
-            key={seat.id}
-            className={`${styles.session__seat} ${seat.selected ? styles.selected : ''}`}
-            onClick={() => handleSeatClick(seat)}
-          ></div>
-        ))}
-        {Array.from({ length: rows }, (_, i) => i + 1).map((rowIndex) => (
-          <div key={rowIndex} className={styles.session__row} style={{ '--row-index': rowIndex }}>
-            <div className={styles.session__rowNumber}>Row {rowIndex}</div>
-            {seats
-              .filter((seat) => seat.row === rowIndex)
-              .map((seat) => (
-                <div
-                  key={seat.id}
-                  className={`${styles.session__seat} ${seat.selected ? styles.selected : ''}`}
-                  onClick={() => handleSeatClick(seat)}
-                ></div>
-              ))}
-          </div>
-        ))}
-      </div>
-      <div className={styles.session__selectedSeats}>
-        <div className={styles.session__selectedSeatsLabel}>Selected Seats:</div>
-        {selectedSeats.map((seat) => (
-          <div key={seat.id} className={styles.session__selectedSeat}>
-            <div className={styles.session__selectedSeatNumber}>{seat.id}</div>
-            <div className={styles.session__selectedSeatLabel}>Row {seat.row}, Seat {seat.seat}</div>
-          </div>
-        ))}
-      </div>
+      <h2>Select your seats</h2>
+      <div className={styles.screen}>Screen</div>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.seatContainer}>{renderSeats()}</div>
+        <button type="submit">Submit</button>
+      </form>
+      <button onClick={initSeats}>Начать выбор/очистить</button>
+      {selectedSeats && <ListOfSeats seats={selectedSeats} />}
     </div>
   );
-}
+};
 
 export default Session;

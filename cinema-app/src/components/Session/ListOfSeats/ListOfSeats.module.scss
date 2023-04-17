@@ -1,0 +1,28 @@
+.list-of-seats {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+
+  h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+
+      &:before {
+        content: "✓ ";
+        color: green;
+      }
+    }
+  }
+}

@@ -1,79 +1,86 @@
 .session {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
-  
-    .session__screen {
-      width: 80%;
-      height: 50px;
-      background-color: #333;
-      margin-bottom: 20px;
-    }
-  
-    .session__seats {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-  
-      .session__row {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        margin-bottom: 10px;
-        z-index: calc(100 - var(--row-index));
-        
-        .session__seat {
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          background-color: #ddd;
-          margin-right: 10px;
-          cursor: pointer;
-  
-          &.selected {
-            background-color: #007bff;
-          }
-        }
-  
-        .session__rowNumber {
-          margin-right: 10px;
-          font-size: 14px;
-          font-weight: bold;
-          color: #333;
-        }
-      }
-    }
-  
-    .session__selectedSeats {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+
+    button[type="submit"] {
       margin-top: 20px;
-  
-      .session__selectedSeatsLabel {
-        font-size: 14px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 5px;
-      }
-  
-      .session__selectedSeat {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-  
-        .session__selectedSeatNumber {
-          font-size: 14px;
-          font-weight: bold;
-          color: #333;
-          margin-right: 5px;
-        }
-  
-        .session__selectedSeatLabel {
-          font-size: 14px;
-          color: #333;
-        }
+      padding: 10px 20px;
+      background-color: #0077ff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #005ae6;
       }
     }
   }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #eee;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ccc;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+
+ 
+}
+.screen {
+  width: 85%;
+  height: 50px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-right: 10px;
+  margin-bottom: 100px;
+}
+.seatContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 1000px;
+
+  .seat {
+    width: 50px;
+    height: 50px;
+    background-color: #eee;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    &.selected {
+      background-color: #0077ff;
+      color: #fff;
+    }
+  }
+}

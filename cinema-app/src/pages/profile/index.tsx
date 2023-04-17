@@ -1,16 +1,14 @@
-import LoginForm from '@/components/LoginForm';
-import styles from './LoginPage.module.scss';
-import Image from 'next/image';
+import ProfileLayout from '@/layouts/ProfileLayout';
+import React from 'react';
 
-const LoginPage = () => {
+
+const ProfilePage: React.FC = () => {
   return (
-    <div className={styles.LoginPage}>
-        <div className={styles.loginPage__header}>
-            <Image src={'./arrow.svg'} alt={'ох ебать не работает'} width={100} height={100} />
-        </div>
-      <LoginForm find={true} />
-    </div>
+    <ProfileLayout>
+      <h1>Profile Information</h1>
+      {/* ... */}
+    </ProfileLayout>
   );
 };
 
-export default LoginPage;
+export default ProfilePage;

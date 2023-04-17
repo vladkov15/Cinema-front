@@ -1,0 +1,33 @@
+.profile-layout {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  
+    .profile-nav {
+      background-color: #f2f2f2;
+      width: 30%;
+      padding: 1rem;
+  
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+  
+        li {
+          cursor: pointer;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+  
+          &.active {
+            background-color: #ddd;
+          }
+        }
+      }
+    }
+  
+    .profile-content {
+      width: 70%;
+      padding: 1rem;
+    }
+  }
+  
