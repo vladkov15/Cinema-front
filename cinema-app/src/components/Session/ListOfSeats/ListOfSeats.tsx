@@ -1,4 +1,4 @@
-import { Seat } from '@/types/type';
+import { Seat } from '@/models/models';
 import { FC } from 'react';
 import styles from './ListOfSeats.module.scss';
 

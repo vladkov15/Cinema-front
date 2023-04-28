@@ -1,22 +1,17 @@
 import React from "react";
 import Card from "../Card/Card";
 import styles from "./Cards.module.scss";
-import { CardProps } from "@/types/type";
+import { CardProps, Film } from "@/models/models";
 
 interface CardsProps {
-  data: CardProps[];
+  data: Film[];
 }
 
 const Cards: React.FC<CardsProps> = ({ data }) => {
   return (
     <div className={styles.cards}>
       {data.map((item) => (
-        <Card
-          key={item.title}
-          imageUrl={item.imageUrl}
-          title={item.title}
-          subtitle={item.subtitle}
-          buttons={item.buttons}
+        <Card key={item.id} data={item}          
         />
       ))}
     </div>

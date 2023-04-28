@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import styles from './ProfileLayout.module.scss';
 import DefaultLayout from '../DefaultLayout';
+import Profile from '@/components/ProfileCard/ProfileCard';
+import { User } from '@/models/models';
+import ProfileTicket from '@/components/ProfileTickets/ProfileTickets';
+
+const template: User = {
+  id: 1,
+  email: 'emcvkem' ,
+  name: 'vlad',
+  second_name: 'kovalev',
+  password: 'dovmvdm' 
+}
 
 interface ProfileLayoutProps {
   children: React.ReactNode;
@@ -15,9 +26,9 @@ const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
 
   let activeContent;
   if (activeNavItem === 'profile') {
-    activeContent = <h1>Profile Information</h1>;
+    activeContent = <Profile data={template} />;
   } else if (activeNavItem === 'tickets') {
-    activeContent = <h1>Booked Tickets</h1>;
+    activeContent = <ProfileTicket user={template} />;
   }
 
   return (
@@ -29,13 +40,13 @@ const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
             className={activeNavItem === 'profile' ? styles.active : ''}
             onClick={() => handleNavItemClick('profile')}
           >
-            Profile
+            Настройки профиля
           </li>
           <li
             className={activeNavItem === 'tickets' ? styles.active : ''}
             onClick={() => handleNavItemClick('tickets')}
           >
-            Tickets
+            Билеты
           </li>
         </ul>
       </nav>

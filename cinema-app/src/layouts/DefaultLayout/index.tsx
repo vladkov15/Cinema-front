@@ -2,9 +2,11 @@ import { FC, ReactNode } from 'react';
 import { SessionProvider } from 'next-auth/react';
 import Header from './Header/Header';
 import Footer from './Footer.tsx/Footer';
+import { setupStore } from '@/app/store';
+import { Provider } from 'react-redux';
 
 interface DefaultLayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const handleButtonClick = (label: string) => {
@@ -16,14 +18,12 @@ const buttons = [
   { label: 'Button 3', onClick: () => handleButtonClick('Button 3') },
 ];
 
-const DefaultLayout: FC<DefaultLayoutProps> = ({ children}) => {
+const DefaultLayout: FC<DefaultLayoutProps> = ({ children }) => {
   return (
     <div>
-      {/* <SessionProvider}> */}
-        <Header />
-        {children}
-        <Footer buttons={buttons} />
-      {/* </SessionProvider> */}
+      <Header />
+      {children}
+      <Footer buttons={buttons} />
     </div>
   );
 };

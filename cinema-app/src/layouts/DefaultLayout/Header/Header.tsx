@@ -34,18 +34,7 @@ const Header: React.FC<HeaderProps> = () => {
       <button className={styles.header__button} onClick={() => {router.push('/profile')}}>
         Профиль
       </button>
-      <form className={styles.header__searchForm} onSubmit={handleSearchSubmit}>
-        <input
-          className={styles.header__searchInput}
-          type="text"
-          placeholder="Поиск"
-          value={searchValue}
-          onChange={handleSearchChange}
-        />
-        <button className={styles.header__searchButton} type="submit">
-          <i></i>
-        </button>
-      </form>
+      
     </header>
   );
 };

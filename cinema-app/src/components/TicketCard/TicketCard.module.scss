@@ -1,0 +1,31 @@
+.ticketCard {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .moviePicture {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+  }
+  
+  .details {
+    flex-grow: 1;
+  }
+  
+  .title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .sessionTime,
+  .place {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #6b6b6b;
+  }

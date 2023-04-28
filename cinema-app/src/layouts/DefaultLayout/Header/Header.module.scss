@@ -1,14 +1,14 @@
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 10px;
   background-color: #f0f0f0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   &__button {
     font-size: 1.2rem;
     font-weight: bold;
+    padding-left: 20rem;
     color: #333;
     background-color: transparent;
     border: none;
