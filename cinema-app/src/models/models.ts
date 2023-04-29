@@ -63,7 +63,7 @@ export interface Booking {
   film_id?: number;
   session_id?: number;
   seat_id?: number;
-  pay: boolean;
+  pay?: boolean;
   created_at?: Date;
   booking_expiry?: Date;
   user?: User;
@@ -76,6 +76,8 @@ export interface Ticket {
   booking_id?: number;
   booking?: Booking;
   seat_id?: number;
+  film_id?: number;
+  session_id?: number;
   seat?: Seat;
   created_at?: Date;
 }

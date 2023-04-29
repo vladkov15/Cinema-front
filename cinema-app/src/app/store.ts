@@ -1,5 +1,4 @@
 import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import userReducer from './reducers/UserSlice'
 import { userApii } from "@/services/UserService";
 import { bookingApi } from "@/services/BookingService";
 import { filmApi } from "@/services/FilmService";
@@ -8,7 +7,6 @@ import { sessionApi } from "@/services/SessionService";
 import { ticketApi } from "@/services/TicketService";
 
 const rootReducer = combineReducers({
-  userReducer,
   [userApii.reducerPath]: userApii.reducer,
   [bookingApi.reducerPath]: bookingApi.reducer,
   [filmApi.reducerPath]: filmApi.reducer,

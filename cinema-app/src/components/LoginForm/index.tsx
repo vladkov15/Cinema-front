@@ -1,12 +1,18 @@
 import { useForm } from 'react-hook-form';
 import styles from './LoginForm.module.scss';
 import { FC } from 'react';
+import { LoginProps } from '@/services/UserService';
 
+export interface UserSignIn{
+  email: string 
+  password: string
+}
 interface LoginFormProps {
-  find: boolean;
+  find: (user: LoginProps) => void;
+
 }
 
-interface LoginFormValues {
+ export interface LoginFormValues {
   firstName: string;
   lastName: string;
   email: string;

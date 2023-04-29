@@ -17,6 +17,11 @@ export const ticketApi = createApi({
         method: 'POST',
         body: ticket
       }),
-    })
+    }), 
+    fetchTicketsByUserId: build.query<Ticket[], number | string>({
+      query: (id: number) => ({
+        url: `/tickets/user/${id}`,
+      }),
+    }),
   }),
 });

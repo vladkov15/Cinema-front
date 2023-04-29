@@ -12,13 +12,13 @@ export const authOptions: NextAuthOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        email: { label: 'Email', type: 'text', placeholder: 'jsmith' },
+        email: { label: 'Email', type: 'text', placeholder: 'email' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
         const { email, password } = credentials as any;
 
-        const res = await fetch('http://.....', {
+        const res = await fetch('http://localhost:7000/users/auth', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -30,6 +30,7 @@ export const authOptions: NextAuthOptions = {
         });
 
         const user = await res.json();
+        console.log(user);
 
         if (res.ok && user) {
           return user;
@@ -42,8 +43,9 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
 
-  pages:{
-    signIn: "@/pages/login/"
-  }
+  pages: {
+    signIn: '../../login',
+    error: '../../login',
+  },
 };
 export default NextAuth(authOptions);
