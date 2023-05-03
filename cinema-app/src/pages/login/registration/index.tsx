@@ -1,12 +1,13 @@
-import LoginForm, { UserSignIn } from '@/components/LoginForm';
-import styles from '../../components/LoginForm/LoginForm.module.scss';
-import Image from 'next/image';
-import { LoginProps, userApii } from '@/services/UserService';
-import { FC, useState } from 'react';
+import { SessionProvider, signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+import styles from '../../../components/LoginForm/LoginForm.module.scss';
+import Image from 'next/image';
+import { userApii } from '@/services/UserService';
 import { User } from '@/models/models';
-import { SessionProvider, SignInResponse, signIn } from 'next-auth/react';
-
+import { useRouter } from 'next/router';
+import { Provider } from 'react-redux';
+import { setupStore } from '@/app/store';
+const store = setupStore();
 export interface LoginFormValues {
   firstName: string;
   lastName: string;
@@ -14,9 +15,9 @@ export interface LoginFormValues {
   password: string;
 }
 
-const LoginPage = () => {
-  const [dataUser, setDataUser] = useState<SignInResponse >();
-  
+const RegistrationPage = () => {
+    const router = useRouter()
+    const [createUser, {}] = userApii.useFetchForLoginMutation()
   var email = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   const {
     register,
@@ -24,30 +25,29 @@ const LoginPage = () => {
     formState: { errors },
     reset,
   } = useForm<LoginFormValues>();
-
   const onSubmitHandler = async (item: LoginFormValues) => {
-    const result = await signIn('credentials', {
-      email: item.email,
-      password: item.password,
-      redirect:true,
-      callbackUrl:'/',
-    })
-    
+    await createUser({
+        name: item.firstName,
+        second_name: item.lastName,
+        email: item.email,
+        password: item.password
+      })
+    setTimeout(() =>{router.push('/')},2000)
   };
-
   return (
-  
-    <div className={styles.LoginPage}>
+    
+    <div>
+      
+        <div className={styles.LoginPage}>
       <div className={styles.loginPage__header}>
-        <Image src={'./arrow.svg'} alt={'ох ебать не работает'} width={50} height={50} />
+        <Image src={'../arrow.svg'} alt={'ох ебать не работает'} width={50} height={50} />
       </div>
 
       <form className={styles.loginForm} onSubmit={handleSubmit(onSubmitHandler)}>
-        {dataUser && (
           <>
-          
+          <h1>Регистрация</h1>
             <div className={styles.loginForm__formGroup}>
-              <label htmlFor="firstName">First Name:</label>
+              <label htmlFor="firstName">Имя:</label>
               <input
                 {...register('firstName', { required: true })}
                 type="text"
@@ -59,7 +59,7 @@ const LoginPage = () => {
               )}
             </div>
             <div className={styles.loginForm__formGroup}>
-              <label htmlFor="lastName">Last Name:</label>
+              <label htmlFor="lastName">Фамилия:</label>
               <input
                 {...register('lastName', { required: true })}
                 type="text"
@@ -71,10 +71,9 @@ const LoginPage = () => {
               )}
             </div>
           </>
-        )}
+        
 
         <div className={styles.loginForm__formGroup}>
-        <h1>Вход</h1>
           <label htmlFor="email">Email:</label>
           <input
             {...register('email', { required: true, pattern: email })}
@@ -106,15 +105,12 @@ const LoginPage = () => {
             </span>
           )}
         </div>
-        <button type="submit">Вход</button>
+        <button type="submit">Регистрация</button>
       </form>
     </div>
-   
-  );
+    </div>
+  
+  )
 };
 
-export default LoginPage;
-function useFetchForLoginMutation(arg0: { variables: { email: string; password: string; }; }) {
-  throw new Error('Function not implemented.');
-}
-
+export default RegistrationPage

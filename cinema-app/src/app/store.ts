@@ -5,6 +5,8 @@ import { filmApi } from "@/services/FilmService";
 import { seatApi } from "@/services/SeatService";
 import { sessionApi } from "@/services/SessionService";
 import { ticketApi } from "@/services/TicketService";
+import userReducer from './reducers/UserSlice'
+import { imageApi } from "@/services/ImageService";
 
 const rootReducer = combineReducers({
   [userApii.reducerPath]: userApii.reducer,
@@ -12,7 +14,9 @@ const rootReducer = combineReducers({
   [filmApi.reducerPath]: filmApi.reducer,
   [seatApi.reducerPath]: seatApi.reducer,
   [sessionApi.reducerPath]: sessionApi.reducer,
-  [ticketApi.reducerPath] : ticketApi.reducer
+  [ticketApi.reducerPath] : ticketApi.reducer,
+  [imageApi.reducerPath] : imageApi.reducer,
+  userReducer
 
 })
 
@@ -20,7 +24,7 @@ export const setupStore = () =>{
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => 
-      getDefaultMiddleware().concat(userApii.middleware, bookingApi.middleware, filmApi.middleware, seatApi.middleware, sessionApi.middleware, ticketApi.middleware)
+      getDefaultMiddleware().concat(userApii.middleware, bookingApi.middleware, filmApi.middleware, seatApi.middleware, sessionApi.middleware, ticketApi.middleware, imageApi.middleware)
   })
 }
 

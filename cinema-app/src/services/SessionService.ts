@@ -18,5 +18,28 @@ export const sessionApi = createApi({
         }
       }),
     }),
+    fetchBySessionsss: build.query<Session[], number >({
+      query: (id: number) => ({
+        url: `/sessions/session`,
+        params:{
+            session_id: id
+        }
+      }),
+    }),
+    createSession: build.mutation<Session, Session>({
+      query: (session: Session) => ({
+        url: '/sessions',
+        method: 'POST',
+        body: session
+      }),
+    }),
+    getSessionByDate: build.query<Session[], string >({
+      query: (id) => ({
+        url: `/sessions/date`,
+        params:{
+            date: id
+        }
+      }),
+    }),
   }),
 });

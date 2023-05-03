@@ -1,5 +1,5 @@
 
-import { Seat } from '@/models/models';
+import { CreateSeat, Seat } from '@/models/models';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 
 export const seatApi = createApi({
@@ -12,10 +12,10 @@ export const seatApi = createApi({
       }),
     }),
     createSeat: build.mutation<Seat, Seat>({
-      query: (seats) => ({
+      query: (seat) => ({
         url: '/seats',
         method: 'POST',
-        data: seats,
+        data: seat,
       }),
     }),
     fetchSeatsById: build.query<Seat[], number | string>({

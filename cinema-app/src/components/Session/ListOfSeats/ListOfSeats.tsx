@@ -11,11 +11,11 @@ const ListOfSeats: FC<ListOfSetsProps> = ({ seats }) => {
 
   return (
     <div className={styles['list-of-seats']}>
-      <h3>Selected Seats:</h3>
+      <h3>Выбранные места:</h3>
       <ul>
         {seats.map((seat) => (
-          <li key={`${seat.row}-${seat.seatNumber}`}>
-            Row {seat.row}, Seat {seat.seatNumber}
+          <li key={`${seat.row}-${seat.seat_number}`}>
+            Ряд: {seat.row}, Место: {seat.seat_number}
           </li>
         ))}
       </ul>

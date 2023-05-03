@@ -1,6 +1,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 
+
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -16,7 +17,9 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
-        const { email, password } = credentials as any;
+        
+        const { email, password} = credentials as any;
+        
 
         const res = await fetch('http://localhost:7000/users/auth', {
           method: 'POST',
@@ -30,22 +33,24 @@ export const authOptions: NextAuthOptions = {
         });
 
         const user = await res.json();
-        console.log(user);
-
         if (res.ok && user) {
           return user;
         } else return null;
       },
     }),
   ],
-
+   callbacks: {
+    session({ session }) {
+      return session // The return type will match the one returned in `useSession()`
+    },
+  },
   session: {
     strategy: 'jwt',
   },
 
   pages: {
     signIn: '../../login',
-    error: '../../login',
+    error: '../../login/registration',
   },
 };
 export default NextAuth(authOptions);

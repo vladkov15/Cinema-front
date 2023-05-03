@@ -1,10 +1,13 @@
 import Session from '@/components/Session/Session';
+import DefaultLayout from '@/layouts/DefaultLayout';
 import { useRouter } from 'next/router';
 
 const SessionId = () => {
-  const router = useRouter();
-  const { sessionId } = router.query
-  return <Session numRows={2} seatsPerRow={5} id={`${sessionId}`} />;
+  return (
+    <DefaultLayout>
+      <Session  />;
+    </DefaultLayout>
+  );
 };
 
-export default SessionId
+export default SessionId;

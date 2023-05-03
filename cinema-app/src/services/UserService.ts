@@ -13,15 +13,23 @@ export const userApii = createApi({
         url: '/users',
       }),
     }),
-    fetchForLogin: build.mutation<User[], LoginProps>({
-      query: (loginProps) => ({
-        url: 'user/auth',
+    fetchOneUsers: build.query<User, string>({
+      query: (email) => ({
+        url: `/users/${email}`,
+      }),
+    }),
+    fetchForLogin: build.mutation<User, User>({
+      query: (user) => ({
+        url: '/users',
         method: 'POST',
-        body: {
-          email: loginProps.email,
-          password: loginProps.password,
-        },
-        
+        body: user
+      }),
+    }),
+    patchUser: build.mutation<User, User>({
+      query: (user) => ({
+        url: `/users/${user.email}`,
+        method: 'PATCH',
+        body: user,
       }),
     }),
   }),

@@ -10,6 +10,13 @@ export const filmApi = createApi({
         url: '/films',
       }),
     }),
+    createFilm: build.mutation<Film, Film>({
+      query: (film) => ({
+        url: '/films',
+        method: 'POST',
+        body: film,
+      }),
+    }),
     fetchFilmById: build.query<Film[], number | string>({
       query: (id: number) => ({
         url: `/films/${id}`,

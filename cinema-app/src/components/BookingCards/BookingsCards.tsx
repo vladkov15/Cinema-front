@@ -10,6 +10,8 @@ interface BookingCardsProps {
 const BookingCards: FC<BookingCardsProps> = ({ user }) => {
   const { data: booking } = bookingApi.useFetchBookingsByUserIdQuery(user);
   
+  
+  
   if (!booking) {
     return null; // or render a loading spinner
   }
@@ -29,10 +31,10 @@ const BookingCards: FC<BookingCardsProps> = ({ user }) => {
     <div>
       <h1>Забронированные билеты:</h1>
       <div className={styles.bookingCards}>
-        {Object.values(bookingsBySessionId).map((bookings) => (
-          <div>
-            {/* <h3>Session {bookings[0].session_id}</h3> display session_id */}
-              <BookingCard booking={bookings} />
+        {Object.values(bookingsBySessionId).map((bookings, index) => (
+          <div key={index}>
+            {/* <h3>Session {bookings[0].session_id}</h3> */}
+              <BookingCard key={index} booking={bookings} />
           </div>
         ))}
       </div>

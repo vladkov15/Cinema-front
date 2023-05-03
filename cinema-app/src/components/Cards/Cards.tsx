@@ -1,19 +1,17 @@
-import React from "react";
-import Card from "../Card/Card";
-import styles from "./Cards.module.scss";
-import { CardProps, Film } from "@/models/models";
+import React from 'react';
+import Card from '../Card/Card';
+import styles from './Cards.module.scss';
+import { CardProps, Film } from '@/models/models';
 
 interface CardsProps {
-  data: Film[];
+  data: Film,
+  date: Date
 }
 
-const Cards: React.FC<CardsProps> = ({ data }) => {
+const Cards: React.FC<CardsProps> = ({ data, date }) => {
   return (
     <div className={styles.cards}>
-      {data.map((item) => (
-        <Card key={item.id} data={item}          
-        />
-      ))}
+      <Card key={data.id} data={data} />
     </div>
   );
 };

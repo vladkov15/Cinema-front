@@ -9,6 +9,8 @@ interface ProfileTicketProps{
 }
 
 const ProfileTicket:FC<ProfileTicketProps> = ({user}) =>{
+  
+    
     return(
         <div>
             <BookingCards user={user.id!} />

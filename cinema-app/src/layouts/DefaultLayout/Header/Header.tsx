@@ -44,11 +44,11 @@ const Header: React.FC<HeaderProps> = () => {
       </button>
       {session?.user ? (
         <>
-          <p className={styles.header__button}>{session.user.email}</p>
-          <button onClick={() => signOut()}>Выйти</button>
+          
+          <button className={styles.header__button} onClick={() => signOut()}> Выйти</button>
         </>
       ) : (
-        <button className={styles.header__button} onClick={() => signIn()}>Войти</button>
+        <button  className={styles.header__button} onClick={() => signIn()}>Войти</button>
       )}
       
     </header>

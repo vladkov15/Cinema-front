@@ -6,7 +6,8 @@ import { sessionApi } from '@/services/SessionService';
 import { useRouter } from 'next/router';
 
 interface CardProps {
-  data: Film;
+  data: Film,
+  
 }
  export function normalizeTime(date: string) {
   return date.match(/(?<=T)\d{2}:\d{2}/);

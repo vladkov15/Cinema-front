@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styles from "./DateTimePicker.module.scss";
 
+
+interface DateTimePickerProps{
+  date: (e: Date) => void
+}
 const formatDate = (date: Date): string => {
   const daysOfWeek = [
     "Воскресенье",
@@ -33,12 +37,15 @@ const formatDate = (date: Date): string => {
   return `${dayOfWeek} ${dayOfMonth} ${month}`;
 };
 
-const DateTimePicker: React.FC = () => {
+const DateTimePicker: React.FC<DateTimePickerProps> = ({date}) => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(event.target.value);
     setSelectedDate(newDate);
+    
+    
+    date(newDate);
   };
 
   return (

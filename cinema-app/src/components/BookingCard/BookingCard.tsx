@@ -11,7 +11,11 @@ interface BookingProps {
 
 const BookingCard: React.FC<BookingProps> = ({ booking }) => {
   const { data: film } = filmApi.useFetchFilmByIdQuery(booking[0].film_id!);
-  const { data: session } = sessionApi.useFetchByIdSessionsQuery(booking[0].session_id!);
+  const { data: session } = sessionApi.useFetchBySessionsssQuery(booking[0].session_id!);
+ console.log('vsvfv',session);
+ 
+  
+  
   return (
     <div className={styles.bookingCard}>
       {film && (
@@ -26,12 +30,13 @@ const BookingCard: React.FC<BookingProps> = ({ booking }) => {
             <h3 className={styles.title}>{film[0].title}</h3>
             <p>места:</p>
             {booking.map((item) => (
-              <p>{'ряд: ' + item.seat?.row + ' место: ' + item.seat?.seat_number}</p>
+              <p key={item.id}>{'ряд: ' + item.seat?.row + ' место: ' + item.seat?.seat_number}</p>
             ))}
             {session && (
               <>
                 <p className={styles.sessionTime}>
-                  {'Время начала: ' + normalizeTime(session[0].start_time!.toString())}
+                  
+                  {'Время начала: ' + normalizeTime(session[0]!.start_time!.toString())}
                 </p>
                 <button className={styles.button}>Оплатить</button>
                 <p className={styles.bookingExpiry}>

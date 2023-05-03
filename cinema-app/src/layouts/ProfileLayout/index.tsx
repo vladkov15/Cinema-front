@@ -4,6 +4,8 @@ import DefaultLayout from '../DefaultLayout';
 import Profile from '@/components/ProfileCard/ProfileCard';
 import { User } from '@/models/models';
 import ProfileTicket from '@/components/ProfileTickets/ProfileTickets';
+import { useSession } from 'next-auth/react';
+import { userApii } from '@/services/UserService';
 
 const template: User = {
   id: 1,
@@ -18,18 +20,24 @@ interface ProfileLayoutProps {
 }
 
 const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
-  const [activeNavItem, setActiveNavItem] = useState('profile');
-
+  const { data: session } = useSession();
+  const {data: user} = userApii.useFetchOneUsersQuery(session?.user?.email!)
+  const [activeNavItem, setActiveNavItem] = useState('tickets');
+  
+  
   const handleNavItemClick = (navItem: string) => {
     setActiveNavItem(navItem);
   };
 
   let activeContent;
-  if (activeNavItem === 'profile') {
-    activeContent = <Profile data={template} />;
-  } else if (activeNavItem === 'tickets') {
-    activeContent = <ProfileTicket user={template} />;
+  if(user){
+    if (activeNavItem === 'profile') {
+      activeContent = <Profile data={user} />;
+    } else if (activeNavItem === 'tickets') {
+      activeContent = <ProfileTicket user={user} />;
+    }
   }
+  
 
   return (
     <DefaultLayout>

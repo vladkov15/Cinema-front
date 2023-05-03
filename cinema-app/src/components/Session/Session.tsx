@@ -1,21 +1,36 @@
 import React, { useState } from 'react';
 import styles from './Session.module.scss';
-import { Booking, Seat } from '@/models/models';
+import { Seat } from '@/models/models';
 import ListOfSeats from './ListOfSeats/ListOfSeats';
 import { bookingApi } from '@/services/BookingService';
 import { seatApi } from '@/services/SeatService';
 import moment from 'moment';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+
+import { userApii } from '@/services/UserService';
 
 interface Props {
-  numRows: number;
-  seatsPerRow: number;
-  id: string;
+
+ 
 }
 
-const Session = ({ numRows, seatsPerRow, id }: Props) => {
-  const router = useRouter()
-  const { data: seatMass } = seatApi.useFetchSeatsByIdQuery(id);
+const Session = () => {
+  const router = useRouter();
+  const { sessionId } = router.query
+ 
+ if(sessionId == undefined){
+    return null;
+ }
+ 
+ 
+  const { data: session } = useSession();
+  
+  
+  const {data: user} = userApii.useFetchOneUsersQuery(session?.user?.email!)
+  const { data: seatMass } = seatApi.useFetchSeatsByIdQuery(`${sessionId}`);
+
+  
   const [seats, setSeats] = useState<Seat[]>();
   const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
   const [createBooking, {}] = bookingApi.useCreateBookingMutation();
@@ -36,6 +51,8 @@ const Session = ({ numRows, seatsPerRow, id }: Props) => {
     // console.log(seatMass);
 
     setSeats(seatMass);
+    console.log(seatMass);
+    
     setSelectedSeats([]);
   };
 
@@ -55,20 +72,19 @@ const Session = ({ numRows, seatsPerRow, id }: Props) => {
 
   const renderSeats = () => {
     const rows = [];
-    for (let i = 0; i < numRows; i++) {
-      const numSeats = seatsPerRow;
+    for (let i = 1; i <= 7; i++) {
       const rowSeats = [];
-      for (let j = 1; j <= numSeats; j++) {
-        const seat = getSeat(i + 1, j);
+      for (let j = 1; j <= 20; j++) {
+        const seat = getSeat(i , j);
         rowSeats.push(
           <div
-            key={`${i + 1}-${j}`}
+            key={`${i}-${j}`}
             className={`${styles.seat} ${
               seat?.bookings![0]
                 ? styles.booking
                 : `${styles.seat} ${seat?.selected ? styles.selected : ''}`
             }`}
-            onClick={() => (seat?.bookings![0] ? '' : toggleSeat(i + 1, j))}
+            onClick={() => (seat?.bookings![0] ? '' : toggleSeat(i , j))}
           >
             {j}
           </div>
@@ -88,28 +104,31 @@ const Session = ({ numRows, seatsPerRow, id }: Props) => {
     const selectedSeats = seats!.filter((seat) => seat.selected);
     console.log(selectedSeats);
     var today = moment().format('YYYY-MM-DD HH:mm:ss');
+    var bookingExpiry = moment(today).add(5, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+  
     selectedSeats.map(
       async (seat) =>
         await createBooking({
-          user_id: 1,
+          user_id: user?.id,
           film_id: seat.film_id,
           seat_id: seat.id,
           session_id: seat.session_id,
           pay: false,
           created_at: new Date(today),
-          booking_expiry: new Date(today),
+          booking_expiry: new Date(bookingExpiry),
         })
     );
-    
+  
+    await router.push('/profile')
   };
 
   return (
     <div className={styles.session}>
-      <h2>Select your seats</h2>
-      <div className={styles.screen}>Screen</div>
+      <h2>Выберите места</h2>
+      <div className={styles.screen}>Экран</div>
       <form onSubmit={handleSubmit}>
         <div className={styles.seatContainer}>{renderSeats()}</div>
-        <button type="submit">Submit</button>
+        <button type="submit">Потвердить</button>
       </form>
       <button onClick={initSeats}>Начать выбор/очистить</button>
       {selectedSeats && <ListOfSeats seats={selectedSeats} />}

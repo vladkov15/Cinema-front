@@ -1,17 +1,36 @@
 import Cards from '@/components/Cards/Cards';
 import DateTimePicker from '@/components/DateTimePicker/DateTimePicker';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import { CardProps } from '@/models/models';
+import { CardProps, Session } from '@/models/models';
 import { filmApi } from '@/services/FilmService';
+import { sessionApi } from '@/services/SessionService';
+import { useState } from 'react';
 
 
 
 const AfishaPage = () => {
-  const { data: film } = filmApi.useFetchAllFilmsQuery('');
-  return (
+  const [time, setTime] = useState<Date>(new Date())
+  const {data : sessions} = sessionApi.useGetSessionByDateQuery(time.toISOString())
+ console.log(sessions);
+  if(sessions === undefined){
+    return null
+  }
+  let filteSessions: Session[] = []; 
+  for (let i = 1; i <= sessions?.length!; i++) {
+    if(sessions[i]?.id! === sessions[i-1]?.id!) {
+      
+    }else{
+      filteSessions.push()
+    }
+    
+  }
+ 
+  return(
     <DefaultLayout>
-      <DateTimePicker />
-      {film && <Cards data={film} />}
+      <DateTimePicker date={(e) => {
+        setTime(e)
+      } } />
+      {sessions && sessions.map((item) => <Cards key={item.id} data={item.film!} date={time} />)}
     </DefaultLayout>
   );
 };
