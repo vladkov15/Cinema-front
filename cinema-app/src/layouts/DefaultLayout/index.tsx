@@ -10,12 +10,11 @@ interface DefaultLayoutProps {
 }
 
 const handleButtonClick = (label: string) => {
-  console.log(`Button ${label} was clicked.`);
+ 
 };
 const buttons = [
-  { label: 'Button 1', onClick: () => handleButtonClick('Button 1') },
-  { label: 'Button 2', onClick: () => handleButtonClick('Button 2') },
-  { label: 'Button 3', onClick: () => handleButtonClick('Button 3') },
+  { label: 'Связаться с нами', url: 'mailto:Egoryusss@gmail.com' },
+  
 ];
 
 const DefaultLayout: FC<DefaultLayoutProps> = ({ children }) => {

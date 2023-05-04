@@ -1,0 +1,21 @@
+.slide {
+  text-align: left;
+  padding-top: 350px;
+  padding-left: 50px;
+  font-size: 24px;
+  color: #ffffff;
+
+  &__rating{
+    width: 10rem;
+    display: flex;
+    align-items: center;
+    
+    &__index{
+        background-color: orange;
+        width: 2rem;
+        text-align: center;
+        border-radius: 10px;
+        margin-left: 5px;
+    }
+  }
+}

@@ -18,6 +18,14 @@ const Header: React.FC<HeaderProps> = () => {
 
   return (
     <header className={styles.header}>
+       <button
+        className={styles.header__button}
+        onClick={() => {
+          router.push('/');
+        }}
+      >
+        Главная
+      </button>
       <button
         className={styles.header__button}
         onClick={() => {

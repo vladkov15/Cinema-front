@@ -29,15 +29,17 @@ const BookingCards: FC<BookingCardsProps> = ({ user }) => {
   // Render each group of bookings using a separate component
   return (
     <div>
-      <h1>Забронированные билеты:</h1>
-      <div className={styles.bookingCards}>
+      
+      {booking.length == 0 ? <><h1>Забронированные билеты отсутствуют</h1></> :<><h1>Забронированные билеты:</h1><div className={styles.bookingCards}>
         {Object.values(bookingsBySessionId).map((bookings, index) => (
           <div key={index}>
             {/* <h3>Session {bookings[0].session_id}</h3> */}
-              <BookingCard key={index} booking={bookings} />
+            <BookingCard key={index} booking={bookings} />
           </div>
         ))}
-      </div>
+      </div></> }
+      
+      
     </div>
   );
 };
