@@ -29,10 +29,12 @@ const AfishaPage = () => {
  
   return(
     <DefaultLayout>
+      <div>
       <DateTimePicker date={(e) => {
         setTime(e)
       } } />
       {sessions && sessions.map((item) => <Cards key={item.id} data={item.film!} date={time} />)}
+      </div>
     </DefaultLayout>
   );
 };

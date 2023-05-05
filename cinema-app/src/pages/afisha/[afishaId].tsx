@@ -1,5 +1,6 @@
 import FilmCard from '@/components/FilmCard/FilmCard';
 import Session from '@/components/Session/Session';
+import DefaultLayout from '@/layouts/DefaultLayout';
 import { Film } from '@/models/models';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -13,8 +14,9 @@ const AfishaId:FC<AfishaIdProps> = () => {
   
 
   return (<div>
+    <DefaultLayout>
      <FilmCard id={`${afishaId}`} />
-    
+     </DefaultLayout>
   </div>)
 };
 
