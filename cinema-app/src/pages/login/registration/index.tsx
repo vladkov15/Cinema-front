@@ -36,7 +36,7 @@ const RegistrationPage = () => {
         email: item.email,
         password: item.password
       })
-    setTimeout(() =>{router.push(`${backUrl}`)},2000)
+    setTimeout(() =>{router.push(`/`)},2000)
   };
   return (
     

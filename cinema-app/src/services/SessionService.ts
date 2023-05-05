@@ -26,6 +26,12 @@ export const sessionApi = createApi({
         }
       }),
     }),
+    fetchBySessionById: build.query<Session, number >({
+      query: (id) => ({
+        url: `/sessions/session/${id}`,
+        
+      }),
+    }),
     createSession: build.mutation<Session, Session>({
       query: (session: Session) => ({
         url: '/sessions',

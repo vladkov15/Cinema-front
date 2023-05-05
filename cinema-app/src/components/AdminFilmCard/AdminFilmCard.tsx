@@ -15,6 +15,7 @@ type FormData = {
   startTime: string;
   endTime: string;
   bookingExpiry: string;
+  price: number;
 };
 const sendSeat = async (seat: CreateSeat) => {
    
@@ -53,6 +54,7 @@ const AdminFilmCard: React.FC<AdminFilmCardProps> = ({ data }) => {
       start_time: new Date(formData.startTime),
       end_time: new Date(formData.endTime),
       booking_expiry: new Date(formData.bookingExpiry),
+      price: formData.price
     })
       .unwrap()
       .then(async (payload) => {
@@ -87,20 +89,24 @@ const AdminFilmCard: React.FC<AdminFilmCardProps> = ({ data }) => {
           <div className={styles.admin_film_card__form}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <label>
-                Session Date:
+                Дата сеанса:
                 <input type="date" {...register('sessionDate')} />
               </label>
               <label>
-                Start Time:
+                Время начала:
                 <input type="datetime-local" {...register('startTime')} />
               </label>
               <label>
-                End Time:
+                Время окончания:
                 <input type="datetime-local" {...register('endTime')} />
               </label>
               <label>
-                Booking Expiry:
+                Окончание бронирования:
                 <input type="datetime-local" {...register('bookingExpiry')} />
+              </label>
+              <label>
+                Цена:
+                <input type="number" {...register('price')} />
               </label>
               <button type="submit">Add Session</button>
             </form>

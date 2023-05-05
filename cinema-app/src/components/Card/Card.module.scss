@@ -69,3 +69,9 @@ $secondary-color: #008cff;
 .card__button:hover {
   background-color: $secondary-color;
 }
+
+.card__price{
+  position: relative;
+  top: 2.5rem;
+  right: 3.7rem;
+}

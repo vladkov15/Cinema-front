@@ -61,9 +61,11 @@ export interface Session {
   date?: Date;
   start_time?: Date;
   end_time?: Date;
+  price?: number;
   booking_expiry?: Date;
   seats?: Seat[];
   bookings?: Booking[];
+  
 }
 
 export interface Booking {
@@ -79,6 +81,7 @@ export interface Booking {
   session?: Session;
   seat?: Seat;
   tickets?: Ticket[];
+  price?: number;
 }
 export interface Ticket {
   id?: number;

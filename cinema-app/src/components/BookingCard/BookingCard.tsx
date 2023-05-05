@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './BookingCard.module.scss';
 import { Booking } from '@/models/models';
 import { filmApi } from '@/services/FilmService';
@@ -12,9 +12,10 @@ interface BookingProps {
 const BookingCard: React.FC<BookingProps> = ({ booking }) => {
   const { data: film } = filmApi.useFetchFilmByIdQuery(booking[0].film_id!);
   const { data: session } = sessionApi.useFetchBySessionsssQuery(booking[0].session_id!);
- console.log('vsvfv',session);
- 
-  
+  let finalPrice: number = 0;
+  for (let index = 0; index < booking.length; index++) {
+    finalPrice += booking[index].price!
+  }
   
   return (
     <div className={styles.bookingCard}>
@@ -38,7 +39,7 @@ const BookingCard: React.FC<BookingProps> = ({ booking }) => {
                   
                   {'Время начала: ' + normalizeTime(session[0]!.start_time!.toString())}
                 </p>
-                <button className={styles.button}>Оплатить</button>
+                <button className={styles.button}>{'Оплатить: ' + finalPrice + ' руб' }</button>
                 <p className={styles.bookingExpiry}>
                   {'Оплатить до: ' + normalizeTime(session[0].booking_expiry!.toString())}
                 </p>

@@ -15,8 +15,10 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ data }) => {
   const { data: session } = sessionApi.useFetchByIdSessionsQuery(data.id!);
   const router = useRouter();
-
+  
+   if(session === undefined){}else  console.log(session[0].start_time!)
   return (
+
     <div className={styles.card}>
       <div className={styles.card__image}>
         <Image
@@ -32,12 +34,13 @@ const Card: React.FC<CardProps> = ({ data }) => {
         </h2>
         <p className={styles.card__subtitle}>{data.description}</p>
         <p className={styles.card_rating}>{data.rating}</p>
+        
         <div className={styles.card__buttons}>
           {session &&
             session.map((button) => (
-              <button key={button.id} className={styles.card__button} onClick={() => router.push(`session/${button.id}`)}>
+              <><button key={button.id} className={styles.card__button} onClick={() => router.push(`session/${button.id}`)}>
                 {button.start_time && normalizeTime(button.start_time.toString())}
-              </button>
+              </button><p className={styles.card__price}>{'Цена: '+ button.price+ 'руб'}</p></>
             ))}
         </div>
       </div>

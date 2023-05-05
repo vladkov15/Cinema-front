@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
 import { userApii } from '@/services/UserService';
+import { sessionApi } from '@/services/SessionService';
 
 interface Props {}
 
@@ -24,12 +25,17 @@ const Session = () => {
 
   const { data: user } = userApii.useFetchOneUsersQuery(session?.user?.email!);
   const { data: seatMass } = seatApi.useFetchSeatsByIdQuery(`${sessionId}`);
-
+  const {data: sessionData} =  sessionApi.useFetchBySessionsssQuery(Number(sessionId))
+  
+  
   const [seats, setSeats] = useState<Seat[]>();
   const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
   const [createBooking, {}] = bookingApi.useCreateBookingMutation();
   const [styleVarible, setStyleVarible] = useState(false);
   const [styleVaribleCheck, setStyleVaribleCheck] = useState(true);
+  if (sessionData == undefined) {
+    return null;
+  }
   const initSeats = () => {
     // const newSeats: Seat[] = [];
     // for (let i = 1; i <= numRows; i++) {
@@ -112,12 +118,13 @@ const Session = () => {
           seat_id: seat.id,
           session_id: seat.session_id,
           pay: false,
+          price: sessionData[0].price,
           created_at: new Date(today),
           booking_expiry: new Date(bookingExpiry),
         })
     );
 
-    await router.push('/profile');
+    setTimeout(()=>  router.push('/profile'),(3000))  
   };
 
   return (
