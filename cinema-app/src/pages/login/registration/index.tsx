@@ -4,7 +4,7 @@ import styles from '../../../components/LoginForm/LoginForm.module.scss';
 import Image from 'next/image';
 import { userApii } from '@/services/UserService';
 import { User } from '@/models/models';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { Provider } from 'react-redux';
 import { setupStore } from '@/app/store';
 const store = setupStore();
@@ -18,6 +18,10 @@ export interface LoginFormValues {
 const RegistrationPage = () => {
     const router = useRouter()
     const [createUser, {}] = userApii.useFetchForLoginMutation()
+    const backUrl = router.query.callbackUrl
+    console.log(backUrl);
+    
+    
   var email = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   const {
     register,
@@ -32,15 +36,15 @@ const RegistrationPage = () => {
         email: item.email,
         password: item.password
       })
-    setTimeout(() =>{router.push('/')},2000)
+    setTimeout(() =>{router.push(`${backUrl}`)},2000)
   };
   return (
     
     <div>
       
         <div className={styles.LoginPage}>
-      <div className={styles.loginPage__header}>
-        <Image src={'../arrow.svg'} alt={'ох ебать не работает'} width={50} height={50} />
+      <div onClick={() => router.back()} className={styles.loginPage__header}>
+        <Image src={'../arrow.svg'} alt={'back to page'} width={50} height={50} />
       </div>
 
       <form className={styles.loginForm} onSubmit={handleSubmit(onSubmitHandler)}>

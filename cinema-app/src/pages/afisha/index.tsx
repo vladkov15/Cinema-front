@@ -4,14 +4,16 @@ import DefaultLayout from '@/layouts/DefaultLayout';
 import { CardProps, Session } from '@/models/models';
 import { filmApi } from '@/services/FilmService';
 import { sessionApi } from '@/services/SessionService';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 
 
 const AfishaPage = () => {
+  const router = useRouter()
   const [time, setTime] = useState<Date>(new Date())
   const {data : sessions} = sessionApi.useGetSessionByDateQuery(time.toISOString())
- console.log(sessions);
+  
   if(sessions === undefined){
     return null
   }

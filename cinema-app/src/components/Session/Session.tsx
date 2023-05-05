@@ -10,31 +10,26 @@ import { useSession } from 'next-auth/react';
 
 import { userApii } from '@/services/UserService';
 
-interface Props {
-
- 
-}
+interface Props {}
 
 const Session = () => {
   const router = useRouter();
-  const { sessionId } = router.query
- 
- if(sessionId == undefined){
+  const { sessionId } = router.query;
+
+  if (sessionId == undefined) {
     return null;
- }
- 
- 
+  }
+
   const { data: session } = useSession();
-  
-  
-  const {data: user} = userApii.useFetchOneUsersQuery(session?.user?.email!)
+
+  const { data: user } = userApii.useFetchOneUsersQuery(session?.user?.email!);
   const { data: seatMass } = seatApi.useFetchSeatsByIdQuery(`${sessionId}`);
 
-  
   const [seats, setSeats] = useState<Seat[]>();
   const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
   const [createBooking, {}] = bookingApi.useCreateBookingMutation();
-
+  const [styleVarible, setStyleVarible] = useState(false);
+  const [styleVaribleCheck, setStyleVaribleCheck] = useState(true);
   const initSeats = () => {
     // const newSeats: Seat[] = [];
     // for (let i = 1; i <= numRows; i++) {
@@ -52,8 +47,11 @@ const Session = () => {
 
     setSeats(seatMass);
     console.log(seatMass);
-    
+
     setSelectedSeats([]);
+
+    styleVaribleCheck ? setStyleVarible(!styleVarible) : '';
+    setStyleVaribleCheck(false);
   };
 
   const toggleSeat = (row: number, seatNumber: number) => {
@@ -75,7 +73,7 @@ const Session = () => {
     for (let i = 1; i <= 7; i++) {
       const rowSeats = [];
       for (let j = 1; j <= 20; j++) {
-        const seat = getSeat(i , j);
+        const seat = getSeat(i, j);
         rowSeats.push(
           <div
             key={`${i}-${j}`}
@@ -84,7 +82,7 @@ const Session = () => {
                 ? styles.booking
                 : `${styles.seat} ${seat?.selected ? styles.selected : ''}`
             }`}
-            onClick={() => (seat?.bookings![0] ? '' : toggleSeat(i , j))}
+            onClick={() => (seat?.bookings![0] ? '' : toggleSeat(i, j))}
           >
             {j}
           </div>
@@ -105,7 +103,7 @@ const Session = () => {
     console.log(selectedSeats);
     var today = moment().format('YYYY-MM-DD HH:mm:ss');
     var bookingExpiry = moment(today).add(5, 'minutes').format('YYYY-MM-DD HH:mm:ss');
-  
+
     selectedSeats.map(
       async (seat) =>
         await createBooking({
@@ -118,8 +116,8 @@ const Session = () => {
           booking_expiry: new Date(bookingExpiry),
         })
     );
-  
-    await router.push('/profile')
+
+    await router.push('/profile');
   };
 
   return (
@@ -127,7 +125,9 @@ const Session = () => {
       <h2>Выберите места</h2>
       <div className={styles.screen}>Экран</div>
       <form onSubmit={handleSubmit}>
-        <div className={styles.seatContainer}>{renderSeats()}</div>
+        <div className={styleVarible ? styles.seatContainer : styles.seatContainerBlur}>
+          {renderSeats()}
+        </div>
         <button type="submit">Потвердить</button>
       </form>
       <button onClick={initSeats}>Начать выбор/очистить</button>

@@ -6,6 +6,7 @@ import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { User } from '@/models/models';
 import { SessionProvider, SignInResponse, signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export interface LoginFormValues {
   firstName: string;
@@ -15,8 +16,10 @@ export interface LoginFormValues {
 }
 
 const LoginPage = () => {
-  const [dataUser, setDataUser] = useState<SignInResponse >();
-  
+  const router = useRouter()
+  const [dataUser, setDataUser] = useState<User>();
+  const backUrl = router.query.callbackUrl
+  console.log(backUrl);
   var email = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   const {
     register,
@@ -26,11 +29,13 @@ const LoginPage = () => {
   } = useForm<LoginFormValues>();
 
   const onSubmitHandler = async (item: LoginFormValues) => {
+    
+    
     const result = await signIn('credentials', {
       email: item.email,
       password: item.password,
       redirect:true,
-      callbackUrl:'/',
+      callbackUrl: `${backUrl}`,
     })
     
   };
@@ -38,8 +43,8 @@ const LoginPage = () => {
   return (
   
     <div className={styles.LoginPage}>
-      <div className={styles.loginPage__header}>
-        <Image src={'./arrow.svg'} alt={'ох ебать не работает'} width={50} height={50} />
+      <div onClick={() => router.back()} className={styles.loginPage__header}>
+        <Image src={'./arrow.svg'} alt={'back to page'} width={50} height={50} />
       </div>
 
       <form className={styles.loginForm} onSubmit={handleSubmit(onSubmitHandler)}>
