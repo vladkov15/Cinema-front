@@ -6,6 +6,7 @@ import { filmApi } from '@/services/FilmService';
 import { sessionApi } from '@/services/SessionService';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import styles from './afisha.module.scss'
 
 
 
@@ -29,7 +30,7 @@ const AfishaPage = () => {
  
   return(
     <DefaultLayout>
-      <div>
+      <div className={styles.afisha}>
       <DateTimePicker date={(e) => {
         setTime(e)
       } } />

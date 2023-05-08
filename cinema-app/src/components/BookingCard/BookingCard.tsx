@@ -1,22 +1,45 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import styles from './BookingCard.module.scss';
-import { Booking } from '@/models/models';
+import { Booking, Seat } from '@/models/models';
 import { filmApi } from '@/services/FilmService';
 import { sessionApi } from '@/services/SessionService';
-import { normalizeTime } from '../Card/Card';
+import { normalizeDate, normalizeDate2, normalizeTime } from '../Card/Card';
+import { templatePDF } from '../BookingCards/BookingsCards';
 
 interface BookingProps {
   booking: Booking[];
+  clb: () => void;
+  pdfClb: (e: templatePDF) => void;
+  children: ReactNode;
 }
 
-const BookingCard: React.FC<BookingProps> = ({ booking }) => {
+const BookingCard: React.FC<BookingProps> = ({ booking, clb, children, pdfClb }) => {
   const { data: film } = filmApi.useFetchFilmByIdQuery(booking[0].film_id!);
-  const { data: session } = sessionApi.useFetchBySessionsssQuery(booking[0].session_id!);
+  const { data: session, isLoading } = sessionApi.useFetchBySessionsssQuery(booking[0].session_id!);
+
   let finalPrice: number = 0;
   for (let index = 0; index < booking.length; index++) {
-    finalPrice += booking[index].price!
+    finalPrice += booking[index].price!;
   }
+
+  let mass: Seat[] = [];
+  for (let i = 0; i < booking.length; i++) {
+    mass.push(booking[i].seat!);
+  }
+  let pdf: templatePDF;
   
+  setTimeout(() => {
+    if (session && session[0]) {
+      pdf = {
+        name: film![0]!.title!,
+        date: normalizeDate2(session[0].date!.toString()),
+        price: finalPrice.toString(),
+        seats: mass,
+        time: normalizeTime(session[0].start_time!.toString()),
+      };
+    }
+  }, 2000);
+
   return (
     <div className={styles.bookingCard}>
       {film && (
@@ -28,18 +51,29 @@ const BookingCard: React.FC<BookingProps> = ({ booking }) => {
           />
 
           <div className={styles.details}>
-            <h3 className={styles.title}>{film[0].title}</h3>
+            <h3 className={styles.title}>{film[0]!.title}</h3>
             <p>места:</p>
-            {booking.map((item) => (
-              <p key={item.id}>{'ряд: ' + item.seat?.row + ' место: ' + item.seat?.seat_number}</p>
+            {booking.map((item, index) => (
+              <p key={index}>{'ряд: ' + item.seat?.row + ' место: ' + item.seat?.seat_number}</p>
             ))}
             {session && (
               <>
                 <p className={styles.sessionTime}>
-                  
+                  {'Дата: ' + normalizeDate(session[0]!.start_time!.toString())}
+                </p>
+                <p className={styles.sessionTime}>
                   {'Время начала: ' + normalizeTime(session[0]!.start_time!.toString())}
                 </p>
-                <button className={styles.button}>{'Оплатить: ' + finalPrice + ' руб' }</button>
+
+                <button
+                  onClick={() => {
+                    clb();
+                    pdfClb(pdf);
+                  }}
+                  className={styles.button}
+                >
+                  {'Оплатить: ' + finalPrice + ' руб'}
+                </button>
                 <p className={styles.bookingExpiry}>
                   {'Оплатить до: ' + normalizeTime(session[0].booking_expiry!.toString())}
                 </p>
@@ -48,6 +82,7 @@ const BookingCard: React.FC<BookingProps> = ({ booking }) => {
           </div>
         </>
       )}
+      <div className={styles.card}>{children}</div>
     </div>
   );
 };

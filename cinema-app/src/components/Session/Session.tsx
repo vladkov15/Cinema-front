@@ -30,7 +30,7 @@ const Session = () => {
   
   const [seats, setSeats] = useState<Seat[]>();
   const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
-  const [createBooking, {}] = bookingApi.useCreateBookingMutation();
+  const [createBooking, {},] = bookingApi.useCreateBookingMutation();
   const [styleVarible, setStyleVarible] = useState(false);
   const [styleVaribleCheck, setStyleVaribleCheck] = useState(true);
   if (sessionData == undefined) {
@@ -124,7 +124,7 @@ const Session = () => {
         })
     );
 
-    setTimeout(()=>  router.push('/profile'),(3000))  
+    setTimeout(()=>  router.push('/profile'),(5000))  
   };
 
   return (

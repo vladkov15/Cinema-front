@@ -8,6 +8,7 @@ interface ApiHelper{
 export const bookingApi = createApi({
   reducerPath: 'bookingApi',
   baseQuery: fetchBaseQuery({ baseUrl: `http://localhost:7000` }),
+  tagTypes: ['Create'],
   endpoints: (build) => ({
     fetchAllBookings: build.query<Booking[], string>({
       query: () => ({
@@ -18,6 +19,7 @@ export const bookingApi = createApi({
       query: (id: number) => ({
         url: `/bookings/${id}`,
       }),
+      providesTags: ['Create']
     }),
     fetchBookingsByUserId: build.query<Booking[], number | string>({
       query: (id: number) => ({
@@ -30,6 +32,7 @@ export const bookingApi = createApi({
         method: 'POST',
         body: booking
       }),
+      invalidatesTags:['Create']
     }),
     fetchByIdSessionsAndUserId: build.query<Booking[], ApiHelper >({
       query: (item : ApiHelper) => ({

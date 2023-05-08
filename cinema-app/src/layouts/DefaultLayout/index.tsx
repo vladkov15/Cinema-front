@@ -19,16 +19,15 @@ const buttons = [
 
 const DefaultLayout: FC<DefaultLayoutProps> = ({ children }) => {
   return (
-    <div className={styles.DefaultLayout}>
-    <div style={{
-          backgroundImage: `url(http://localhost:7000/images/background.jpg)`,
-          backgroundSize: 'cover',
-          
-          height: '1145px',
-          width: '100%',
-        }}>
+    <div className={styles.DefaultLayout}  style={{
+      backgroundImage: `url(http://localhost:7000/images/background.jpg)`,
+      backgroundSize: 'cover',
+      height: '100%',
+      width: '100%',
+    }}>
+    <div>
       <Header />
-      {children}
+      <div className={styles.children}>{children}</div>
       <Footer buttons={buttons} />
     </div>
     </div>

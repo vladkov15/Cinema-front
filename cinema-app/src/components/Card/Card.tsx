@@ -10,8 +10,29 @@ interface CardProps {
   
 }
  export function normalizeTime(date: string) {
-  return date.match(/(?<=T)\d{2}:\d{2}/);
+  return `${date.match(/(?<=T)\d{2}:\d{2}/)}`;
 }
+
+export function normalizeDate(date: string){
+  const regex = /^(\d{4})-(\d{2})-(\d{2})/;
+  
+  const match = date.match(regex);
+  const year = match![1];
+  const month = new Date(Date.parse(date)).toLocaleString('ru', { month: 'long' });
+  const day = match![3];
+  
+   return `${day} ${month} ${year}`;
+
+}
+export function normalizeDate2(date: string){
+  const regex = /\d{4}-\d{2}-\d{2}/;
+  const found = date.match(regex);
+  if(found){
+     const [year, month, day] = found[0].split('-');
+     return `${day}-${month}-${year}`;
+  }
+  return '';
+} 
 const Card: React.FC<CardProps> = ({ data }) => {
   const { data: session } = sessionApi.useFetchByIdSessionsQuery(data.id!);
   const router = useRouter();
