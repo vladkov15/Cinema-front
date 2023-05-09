@@ -18,15 +18,17 @@ const AfishaPage = () => {
   if(sessions === undefined){
     return null
   }
-  let filteSessions: Session[] = []; 
-  for (let i = 1; i <= sessions?.length!; i++) {
-    if(sessions[i]?.id! === sessions[i-1]?.id!) {
-      
-    }else{
-      filteSessions.push()
+
+  const uniqueSessions = sessions.reduce((acc: Session[], session: Session) => {
+    const index = acc.findIndex((s) => s.film_id === session.film_id);
+    if (index === -1) {
+      acc.push(session);
+    } else {
+      acc[index] = { ...acc[index], ...session };
     }
-    
-  }
+    return acc;
+  }, []);
+  
  
   return(
     <DefaultLayout>
@@ -34,7 +36,7 @@ const AfishaPage = () => {
       <DateTimePicker date={(e) => {
         setTime(e)
       } } />
-      {sessions && sessions.map((item) => <Cards key={item.id} data={item.film!} date={time} />)}
+      {uniqueSessions && uniqueSessions.map((item) => <Cards key={item.id} data={item.film!} date={time} />)}
       </div>
     </DefaultLayout>
   );

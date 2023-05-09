@@ -4,7 +4,7 @@ import styles from './Cards.module.scss';
 import { CardProps, Film } from '@/models/models';
 
 interface CardsProps {
-  data: Film,
+  data: Film | any,
   date: Date
 }
 

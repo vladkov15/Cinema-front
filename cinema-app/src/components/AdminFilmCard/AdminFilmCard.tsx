@@ -35,9 +35,10 @@ const AdminFilmCard: React.FC<AdminFilmCardProps> = ({ data }) => {
   const [createSession, {}] = sessionApi.useCreateSessionMutation();
   const [createSeats, {}] = seatApi.useCreateSeatMutation();
   const { register, handleSubmit } = useForm<FormData>();
+  const [deleteSession, setDeleteSession] = useState<number>(0)
   const [deleteFilm, setDeleteFilm] = useState(-1)
   const { data: film } = filmApi.useDeleteFilmQuery(deleteFilm);
- 
+ const {data: session} = sessionApi.useDeleteByIdSessionsQuery('' || deleteSession)
   const handleModalOpen = () => {
     setIsModalOpen(true);
   };
@@ -45,7 +46,9 @@ const AdminFilmCard: React.FC<AdminFilmCardProps> = ({ data }) => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-
+  const handleSessionDelete = (id: number) => {
+    setDeleteSession(id)
+  };
   const handleDelete = (id: number) => {
     setDeleteFilm(id)
   };
@@ -90,6 +93,8 @@ const AdminFilmCard: React.FC<AdminFilmCardProps> = ({ data }) => {
           <button onClick={handleModalOpen}>Добавить сеанс</button>
           <div>{'-------------------------'}</div>
           <button onClick={() => handleDelete(data.id!)}>Удалить фильм</button>
+          <div>{'-------------------------'}</div>
+          <button onClick={() => handleSessionDelete(data.id!)}>Удалить сеансы</button>
         </>
       )}
       {isModalOpen && (

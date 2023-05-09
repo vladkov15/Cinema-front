@@ -4,7 +4,7 @@ $secondary-color: #008cff;
 .card {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 90rem;
   margin: 20px;
   border-radius: 10px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -42,7 +42,7 @@ $secondary-color: #008cff;
 .card__subtitle {
   font-size: 20px;
   line-height: 1.4;
-  color: #8a8a8a;
+  color: #000000;
 }
 
 .card_rating {
