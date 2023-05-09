@@ -73,17 +73,17 @@ export default function MovieForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.field}>
-        <label htmlFor="title">Title</label>
+        <label htmlFor="title">Название</label>
         <input type="text" id="title" {...register('title', { required: true })} />
         {errors.title && <span className={styles.error}>This field is required</span>}
       </div>
       <div className={styles.field}>
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">Описание</label>
         <textarea id="description" {...register('description', { required: true })} />
         {errors.description && <span className={styles.error}>This field is required</span>}
       </div>
       <div className={styles.field}>
-        <label htmlFor="rating">Rating</label>
+        <label htmlFor="rating">Рейтинг</label>
         <input
           type="number"
           id="rating"
@@ -100,7 +100,7 @@ export default function MovieForm() {
         )}
       </div>
       <div className={styles.field}>
-        <label htmlFor="picture">Picture</label>
+        <label htmlFor="picture">Постер</label>
         <input type="file" id="picture" accept="image/*" onChange={handlePictureChange} />
         {picturePreview && (
           <div className={styles.picturePreview}>
@@ -110,7 +110,7 @@ export default function MovieForm() {
         )}
       </div>
       <button type="submit" className={styles.submitButton}>
-        Create movie
+          Добавить фильм
       </button>
     </form>
   );

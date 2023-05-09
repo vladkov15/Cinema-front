@@ -22,5 +22,12 @@ export const filmApi = createApi({
         url: `/films/${id}`,
       }),
     }),
+     deleteFilm: build.query<Film, number | string>({
+      query: (id) => ({
+        url: `/films/${id}`,
+        method: 'DELETE'
+      }),
+    }),
   }),
+  
 });

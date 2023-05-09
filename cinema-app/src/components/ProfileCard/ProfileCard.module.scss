@@ -1,5 +1,6 @@
 .container {
   max-width: 100%;
+  min-height: 1000px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f2f2f28a;
@@ -21,18 +22,19 @@
     flex-direction: column;
     align-items: center;
     border: #333 solid;
-    width: 30rem;
+    min-width: 100%;
     label{
        margin-top: 0;
         margin-bottom: 0.5rem;
         margin-top:  0.5rem;
-        
+        font-size: 24px;
     }
 
     input{
         border-radius: 25px;
         margin-bottom: 1rem;
-        height: 1rem;
+        height: 2rem;
+        font-size: 24px;
     }
 
     button{
@@ -40,6 +42,7 @@
         color: #f2f2f2;
         border-radius: 10px;
         margin-bottom: 0.5rem;
+        height: 2rem;
     };
   }
 
