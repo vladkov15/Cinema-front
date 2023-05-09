@@ -9,7 +9,8 @@ $secondary-color: #008cff;
   border-radius: 10px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  
+  height: auto;
+  background: rgba(254, 255, 255, 0.548);
 }
 
 .card__image {
@@ -26,10 +27,10 @@ $secondary-color: #008cff;
   padding: 10px;
   margin-left: 50px;
   width: 90%;
-  background-color: #fff;
+
   border-radius: 0 0 10px 10px;
   box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.1);
-  background: rgba(205, 214, 219, 0);
+  
 }
 
 .card__title {
@@ -58,7 +59,7 @@ $secondary-color: #008cff;
 .card__button {
   display: inline-block;
   padding: 5px 10px;
-  margin: 5px;
+  margin: 10px;
   font-size: 14px;
   font-weight: bold;
   color: #fff;
@@ -66,6 +67,7 @@ $secondary-color: #008cff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  
 }
 
 .card__button:hover {
@@ -73,7 +75,8 @@ $secondary-color: #008cff;
 }
 
 .card__price{
-  position: relative;
+  margin-left: 10px;
   top: 2.5rem;
   right: 3.7rem;
+  
 }

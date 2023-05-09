@@ -59,9 +59,9 @@ const Card: React.FC<CardProps> = ({ data }) => {
         <div className={styles.card__buttons}>
           {session &&
             session.map((button) => (
-              <><button key={button.id} className={styles.card__button} onClick={() => router.push(`session/${button.id}`)}>
+              <div className={styles.card__container}><button key={button.id} className={styles.card__button} onClick={() => router.push(`session/${button.id}`)}>
                 {button.start_time && normalizeTime(button.start_time.toString())}
-              </button><p className={styles.card__price}>{'Цена: '+ button.price+ 'руб'}</p></>
+              </button><p className={styles.card__price}>{'Цена: '+ button.price+ 'руб'}</p></div>
             ))}
         </div>
       </div>
