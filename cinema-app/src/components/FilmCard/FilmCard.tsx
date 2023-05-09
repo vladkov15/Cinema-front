@@ -27,8 +27,8 @@ const FilmCard: FC<FilmCardProps> = ({ id }) => {
             />
             <div className={styles.filmCard__info}>
               <h2 className={styles.filmCard__title}>{film[0].title}</h2>
-              <p className={styles.filmCard__description}>{film[0].description}</p>
-              <div className={styles.filmCard__rating}>{film[0].rating}</div>
+              <p className={styles.filmCard__description}>{'Описание: ' +film[0].description}</p>
+              <div className={styles.filmCard__rating}>{'Рейтинг: ' + film[0].rating}</div>
             </div>
           </div>
           <div className={styles.times}>

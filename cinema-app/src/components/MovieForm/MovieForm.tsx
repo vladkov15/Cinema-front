@@ -85,9 +85,9 @@ export default function MovieForm() {
       <div className={styles.field}>
         <label htmlFor="rating">Рейтинг</label>
         <input
-          type="number"
+          type=""
           id="rating"
-          {...register('rating', { required: true, min: 1, max: 10 })}
+          {...register('rating', { required: true, min: 1.0, max: 10.0 })}
         />
         {errors.rating && errors.rating.type === 'required' && (
           <span className={styles.error}>This field is required</span>

@@ -5,6 +5,7 @@ $secondary-color: #008cff;
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+  background-color: #ffffff4d;
 
   &__poster {
     width: 20rem;
@@ -19,18 +20,20 @@ $secondary-color: #008cff;
 
   &__title {
     font-size: 4rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 4rem;
   }
 
   &__description {
     font-size: 2rem;
     margin-bottom: 3rem;
+    width: 70%;
+    text-align: justify;
   }
 
   &__rating {
     display: inline-block;
     background-color: #f5a623;
-    width: 3rem;
+    width: 14rem;
     height: 3rem;
     font-size: 2.5rem;
     color: #fff;
@@ -39,9 +42,6 @@ $secondary-color: #008cff;
     font-weight: bold;
     margin-right: 0.5rem;
   }
-
- 
-  
 }
 .times {
   display: flex;
