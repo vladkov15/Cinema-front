@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+ 
   background-image: url(../../../public/background.jpg);
   width: 100%;
   background-size: cover;
@@ -49,4 +49,10 @@
       background-color: #0069d9;
     }
   }
+}
+
+.Image {
+  position: absolute;
+  top:50px;
+  left: 50px;
 }

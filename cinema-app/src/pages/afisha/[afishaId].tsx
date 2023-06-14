@@ -4,6 +4,8 @@ import DefaultLayout from '@/layouts/DefaultLayout';
 import { Film } from '@/models/models';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
+import styles from "./afisha.module.scss"
+
 interface AfishaIdProps{
   
 }
@@ -13,7 +15,7 @@ const AfishaId:FC<AfishaIdProps> = () => {
   
   
 
-  return (<div>
+  return (<div className={styles.AfishaItem}>
     <DefaultLayout>
      <FilmCard id={`${afishaId}`} />
      </DefaultLayout>

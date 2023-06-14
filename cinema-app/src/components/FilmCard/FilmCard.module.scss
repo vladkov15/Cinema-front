@@ -6,6 +6,7 @@ $secondary-color: #008cff;
   align-items: center;
   margin-bottom: 1rem;
   background-color: #ffffff4d;
+  min-height: 63vh;
 
   &__poster {
     width: 20rem;
@@ -45,6 +46,7 @@ $secondary-color: #008cff;
 }
 .times {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-top: 0.5rem;
   &__time {
@@ -58,9 +60,12 @@ $secondary-color: #008cff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 5%;
 
     &:hover {
       background-color: #e5e5e5;
     }
   }
+
+  
 }

@@ -14,7 +14,7 @@ const FilmCard: FC<FilmCardProps> = ({ id }) => {
   const { data: film } = filmApi.useFetchFilmByIdQuery(id);
 
   const { data: session } = sessionApi.useFetchByIdSessionsQuery(id);
-
+  const router = useRouter();
   return (
     <>
       {film && (
@@ -32,9 +32,10 @@ const FilmCard: FC<FilmCardProps> = ({ id }) => {
             </div>
           </div>
           <div className={styles.times}>
+            <h1>Сеансы:</h1>
             {session &&
               session.map((time, index) => (
-                <button key={index} className={styles.times__time}>
+                <button key={index} className={styles.times__time} onClick={(()=> router.push(`/session/${time.id}`))}>
                   {time.start_time && normalizeTime(time.start_time.toString())}
                 </button>
               ))}

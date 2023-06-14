@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react';
 
 import { userApii } from '@/services/UserService';
 import { sessionApi } from '@/services/SessionService';
+import { set } from 'react-hook-form';
 
 interface Props {}
 
@@ -25,14 +26,22 @@ const Session = () => {
 
   const { data: user } = userApii.useFetchOneUsersQuery(session?.user?.email!);
   const { data: seatMass } = seatApi.useFetchSeatsByIdQuery(`${sessionId}`);
-  const {data: sessionData} =  sessionApi.useFetchBySessionsssQuery(Number(sessionId))
-  
-  
+  const { data: sessionData } = sessionApi.useFetchBySessionsssQuery(Number(sessionId));
+
   const [seats, setSeats] = useState<Seat[]>();
   const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
-  const [createBooking, {},] = bookingApi.useCreateBookingMutation();
+  const [createBooking, {}] = bookingApi.useCreateBookingMutation();
   const [styleVarible, setStyleVarible] = useState(false);
   const [styleVaribleCheck, setStyleVaribleCheck] = useState(true);
+
+  const [wait, setWait] = useState(false);
+
+  let waitModule = (
+    <div className={styles.Wait}>
+      <h1>Подождите секунду...</h1>
+    </div>
+  );
+
   if (sessionData == undefined) {
     return null;
   }
@@ -123,22 +132,25 @@ const Session = () => {
           booking_expiry: new Date(bookingExpiry),
         })
     );
-
-    setTimeout(()=>  router.push('/profile'),(5000))  
+    setTimeout(() => setWait(!wait))    
+    setTimeout(() => router.push('/profile'), 6000);
   };
 
   return (
-    <div className={styles.session}>
-      <h2>Выберите места</h2>
-      <div className={styles.screen}>Экран</div>
-      <form onSubmit={handleSubmit}>
-        <div className={styleVarible ? styles.seatContainer : styles.seatContainerBlur}>
-          {renderSeats()}
-        </div>
-        <button type="submit">Потвердить</button>
-      </form>
-      <button onClick={initSeats}>Начать выбор/очистить</button>
-      {selectedSeats && <ListOfSeats seats={selectedSeats} />}
+    <div>
+      {wait == false?
+      <div className={styles.session}>
+        <h2>Выберите места</h2>
+        <div className={styles.screen}>Экран</div>
+        <form onSubmit={handleSubmit}>
+          <div className={styleVarible ? styles.seatContainer : styles.seatContainerBlur}>
+            {renderSeats()}
+          </div>
+          <button type="submit">Потвердить</button>
+        </form>
+        <button onClick={initSeats}>Начать выбор/очистить</button>
+        {selectedSeats && <ListOfSeats seats={selectedSeats} />}
+      </div>: waitModule}
     </div>
   );
 };
