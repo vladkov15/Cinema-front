@@ -133,7 +133,7 @@ const Session = () => {
         })
     );
     setTimeout(() => setWait(!wait))    
-    setTimeout(() => router.push('/profile'), 6000);
+    setTimeout(() => router.push('/profile'), 5000);
   };
 
   return (

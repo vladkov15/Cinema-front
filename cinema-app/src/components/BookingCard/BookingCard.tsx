@@ -14,9 +14,9 @@ interface BookingProps {
 }
 
 const BookingCard: React.FC<BookingProps> = ({ booking, clb, children, pdfClb }) => {
-  const { data: film } = filmApi.useFetchFilmByIdQuery(booking[0].film_id!);
+  
   const { data: session, isLoading } = sessionApi.useFetchBySessionsssQuery(booking[0].session_id!);
-
+  const { data: film } = filmApi.useFetchFilmByIdQuery(booking[0].film_id!);
   let finalPrice: number = 0;
   for (let index = 0; index < booking.length; index++) {
     finalPrice += booking[index].price!;
@@ -28,17 +28,22 @@ const BookingCard: React.FC<BookingProps> = ({ booking, clb, children, pdfClb })
   }
   let pdf: templatePDF;
   
-  setTimeout(() => {
+  function track () {
     if (session && session[0]) {
-      pdf = {
-        name: film![0]!.title!,
-        date: normalizeDate2(session[0].date!.toString()),
-        price: finalPrice.toString(),
-        seats: mass,
-        time: normalizeTime(session[0].start_time!.toString()),
-      };
+      if(film) {
+        pdf = {
+          name: film![0]!.title!,
+          date: normalizeDate2(session[0].date!.toString()),
+          price: finalPrice.toString(),
+          seats: mass,
+          time: normalizeTime(session[0].start_time!.toString()),
+        };
+      } 
     }
-  }, 2000);
+  }
+  setTimeout(() => {
+    track()
+  }, 5000);
 
   return (
     <div className={styles.bookingCard}>

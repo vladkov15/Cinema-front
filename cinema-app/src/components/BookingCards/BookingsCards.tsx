@@ -28,7 +28,9 @@ const BookingCards: FC<BookingCardsProps> = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookingsData, setBookingData] = useState();
   const [dataPDF, setDataPDF] = useState<templatePDF>();
+  const [load, setLoad] = useState(false)
 
+  let wait = <div></div>
   const handleModalOpen = (bookings: any) => {
     setIsModalOpen(true);
     setBookingData(bookings);
@@ -42,9 +44,7 @@ const BookingCards: FC<BookingCardsProps> = ({ user }) => {
     return null; // or render a loading spinner
   }
 
-  if (isLoading) {
-    return <div>Загрузка...</div>; // or render a loading spinner
-  }
+  
 
   // Group bookings by session_id
   const bookingsBySessionId: { [key: number]: Array<any> } = {};
