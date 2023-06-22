@@ -35,14 +35,14 @@ const Footer: React.FC<FooterProps> = ({ buttons }) => {
           </button>
         ))}
       </div>
-      <button className={styles.expandButton} onClick={toggleExpanded}>
+      {/* <button className={styles.expandButton} onClick={toggleExpanded}>
         {isExpanded ? 'Hide' : 'Show'} More
       </button>
       {isExpanded && (
         <div className={styles.expandedContent}>
           <p>Additional content goes here.</p>
         </div>
-      )}
+      )} */}
     </footer>
   );
 };
